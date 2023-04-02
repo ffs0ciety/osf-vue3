@@ -15,6 +15,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@aws-amplify/ui-vue": "^3.1.12",
+    "aws-amplify": "^5.0.23",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "pinia": "^2.0.32",
