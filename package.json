@@ -17,10 +17,13 @@
   "dependencies": {
     "@aws-amplify/ui-vue": "^3.1.12",
     "aws-amplify": "^5.0.23",
+    "chart.js": "^4.2.1",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "pinia": "^2.0.32",
     "vue": "^3.2.47",
+    "vue-chartjs": "^5.2.0",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
