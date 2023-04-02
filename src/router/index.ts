@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { userStore } from '@/stores/user'
+import _ from 'lodash'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,10 +42,10 @@ router.beforeEach(async (to, from, next) => {
 
   var store  = userStore();
   var authenticated = store.token;
-  if (to.fullPath.includes('private') && !authenticated)
-  {
+
+  if(to.fullPath.includes('private') && !authenticated){
     return next({name:'login'})
-  } 
+  }
 
   if (to.name == 'login' && authenticated){
     return next({name:'dashboard'})

@@ -1,89 +1,48 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import { userStore } from '@/stores/user'
-const store = userStore();
-
+import { RouterView } from 'vue-router'
+import Header from './components/Header.vue';
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <!-- <Header /> -->
+  <!-- <RouterView /> -->
 
-    <div class="wrapper">
-      <!-- <HelloWorld msg="You did it!" /> -->
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/private/jamon">Private</RouterLink>
-        <RouterLink v-if="!store.token" to="/login">Login</RouterLink>
-        <RouterLink v-else to="/private/dashboard">Dashboard</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <div class="layout">
+    <header class="header"><Header /></header>
+    <!-- <section class="sidebar">sidebar</section> -->
+    <main class="view"><RouterView /></main>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<style>
+.layout {
+  background-color: #8c1d1d;
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 60px 1fr;
+  
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.header {
+  background-color: #333333;
+  grid-column: 1 / 3;
+  grid-row: 1 / 2;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+.view {
+  /* width: 400px; */
+  background-color: #e7e7e7;
+  grid-column: 1 / 3;
+  grid-row: 2  / 3;
+  overflow: auto;
 }
+/* 
+.sidebar {
+  background-color: rgb(167, 167, 167);
+  grid-column: 1 / 2;
+  grid-row: 1  / 3;
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
+} */
 </style>

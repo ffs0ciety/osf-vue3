@@ -18,7 +18,6 @@ defineComponent({
 
 <template>
   <main>
-    Holi
-    <Padre />
+    Info about blabla
   </main>
 </template>

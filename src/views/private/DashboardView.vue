@@ -7,7 +7,6 @@ import { goalsStore } from '@/stores/goals'
 import _ from "lodash"
 import AddGoal from "@/components/AddGoal.vue"
 import Goal from "@/components/Goal.vue";
-import { getGoals } from "@/services/Goals"
 import { storeToRefs } from 'pinia'
 var storeUser  = userStore();
 
@@ -23,7 +22,7 @@ export default defineComponent({
         return {
            userStore: _.omit(storeUser,'token'),
            goals: goals,
-           selectedGoal: null
+           selectedGoal: 0
         }
     },
     methods:{
@@ -34,14 +33,11 @@ export default defineComponent({
         logoutButton(){
           logout();
         },
-        selectGoal(goalId:string){
-          
-          this.selectedGoal = goalId;
+        selectGoal(index:number){
+          this.selectedGoal = index;
         }
     },
     async mounted(){
-      // var storeGoals  = goalsStore();
-      // this.goals = storeGoals.goals;
     }
 
 })
@@ -50,25 +46,24 @@ export default defineComponent({
 
 <template>
   <div>
-    <ul>
-        <li>Add new goal</li>
-        <li><button @click="logoutButton">Logout</button></li>
-        <li>List of goals
-            <ul>
-              <li @click="selectGoal(item)" v-for="(item, index) in goals" :key="index">
+    <button @click="logoutButton">Logout</button>
+    <AddGoal :ownerId="userStore.sub"/>
+    <div>
+      <ul>
+              <li @click="selectGoal(index)" v-for="(item, index) in goals" :key="index">
                 {{item.title}}
-                {{ item.entrances }}
+                <!-- {{ item.entrances }} -->
               </li>
             </ul>
-        </li>
-       <Goal v-if="selectedGoal" 
-        :goalId="selectedGoal._id" 
-        :title="selectedGoal.title" 
-        :description="selectedGoal.description" 
-        :entrances="selectedGoal.entrances"
-        />
-        
-      </ul>
-      <AddGoal :ownerId="userStore.sub"/>
+    </div>
+    <Goal v-if="goals.length > 0"
+        :goalId="goals[selectedGoal]._id" 
+        :title="goals[selectedGoal].title" 
+        :daily="goals[selectedGoal].daily" 
+        :description="goals[selectedGoal].description" 
+        :entrances="goals[selectedGoal].entrances"
+      />
+
+      
   </div>
 </template>

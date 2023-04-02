@@ -11,7 +11,7 @@ export default defineComponent({
     title: String,
     description: String,
     daily: Boolean,
-    entrances: Array
+    entrances: Array,
   },
   components: {
   },
@@ -33,12 +33,12 @@ export default defineComponent({
 
 <template>
   <div>
-    jamon
-    <h2>{{ title }}</h2>
+    <h2>{{ title }}</h2> <h2 v-if="daily">* Desafío diario</h2>
     <h3>{{ description }}</h3>
-    <ul>
+    {{ entrances }}
+    <!-- <ul>
       <li v-for="(item, index) in entrances" :key="index">{{ item }}</li>
-    </ul>
+    </ul> -->
     <button @click="addEntranceMethod">Add entrance</button>
   </div>
 </template>

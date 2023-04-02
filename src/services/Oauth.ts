@@ -5,6 +5,7 @@ import router from "@/router";
 import OauthApi from "@/services/apis/osfOauth"
 import jwt_decode from "jwt-decode";
 import { getGoals } from './Goals';
+import { goalsStore } from '@/stores/goals';
 
 export async function login(email: string, password:string){
     var oauth = new OauthApi();
@@ -33,8 +34,10 @@ export async function login(email: string, password:string){
 }
 
 export function logout(){
-    const store = userStore();
-    store.$reset();
+    const storeUser = userStore();
+    const storeGoals = goalsStore();
+    storeUser.$reset();
+    storeGoals.$reset();
     router.push({path: '/login'})
 }
 
