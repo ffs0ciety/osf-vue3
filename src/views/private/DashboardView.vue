@@ -46,7 +46,7 @@ export default defineComponent({
 
 <template>
   <div>
-    <button @click="logoutButton">Logout</button>
+    <button @click="logoutButton">Logout!</button>
     <AddGoal :ownerId="userStore.sub"/>
     <div>
       <ul>
