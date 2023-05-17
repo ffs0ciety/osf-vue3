@@ -28,6 +28,8 @@ export async function addEntrance(goalId: string){
     await goals.addEntrance(goalId).then(  async newGoal => {
         var storeGoals = goalsStore();
         storeGoals.goals = await goals.getGoals();
+    }).catch(error => {
+        throw error
     })
 }
 

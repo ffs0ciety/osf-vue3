@@ -14,8 +14,9 @@ import {
   Tooltip,
   Legend
 } from 'chart.js'
-import { last } from "lodash"
+
 import _ from "lodash"
+import {chartDataFromHistorical} from "@/utils/DataCalendar"
 
 ChartJS.register(
   CategoryScale,
@@ -37,33 +38,8 @@ export default defineComponent({
     },
     data() {
         return {
-            test: [
-                "Sun Apr 02 2023 18:30:13 GMT+0000 (Coordinated Universal Time)",
-                "Sun Apr 03 2023 18:30:13 GMT+0000 (Coordinated Universal Time)",
-                "Sun Apr 05 2023 18:30:13 GMT+0000 (Coordinated Universal Time)",
-                "Sun Apr 06 2023 18:30:13 GMT+0000 (Coordinated Universal Time)"
-            ],
-
-            // chartData: {
-            //     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            //     datasets: [
-            //         {
-            //             label: 'Data One',
-            //             backgroundColor: '#f87979',
-            //             data: [40, 39, 10, 40, 39, 80, 40]
-            //         }
-            //     ]
-            // },
-            chartData: {
-                labels: this.getLabels(this.historical) ,
-                datasets: [
-                    {
-                        label: 'Data One',
-                        backgroundColor: '#f87979',
-                        data: this.getLabels(this.historical).map((x,index) => {return index})
-                    }
-                ]
-            },
+            charged: false,
+            chartData: {},
             chartOptions: {
                 responsive: true,
                 maintainAspectRatio: true
@@ -71,41 +47,37 @@ export default defineComponent({
         }
     },
     methods: {
-        getLabels(arr:Array<String>){
-            var lastDate =new Date(arr[arr.length-1]);
-            var labels = []
-            var day = new Date(arr[0]);
-
-            while(day < lastDate){
-                labels.push(_.clone(day));
-                new Date(day.setDate(day.getDate()+1))
-            }
-            labels.push(lastDate)
-           return labels;
-        },
-        getCount(){
-            return [1,2,3,4,5]
-        },
-        toDate(str:string){
-            return moment(str).format("DD/MM/YYYY HH:MM")
-        }
+    
     },
-    async mounted() {
-    }
+    updated() {
+        // console.log('on mounted', this.historical)
+        this.chartData = {
+                labels: chartDataFromHistorical(this.historical, {labels:'day'}).labels,
+                datasets: [
+                    {
+                        label: 'Steps!',
+                        backgroundColor: '#f87979',
+                        data: chartDataFromHistorical(this.historical, {labels:'day'}).dataSet,
+                        tension: 0.5
+                    }
+                ],
+            }
+
+        this.charged = true
+
+    },
 
 })
 </script>
 
 
 <template>
-    <!-- <div v-for="(item, index) in historical" :key="index"> -->
-        <!-- {{ historical.map( (item, index) => { return index+1}) }} -->
-    <!-- {{ historical.map( (item, index) => { return index+1}) }} -->
-    <!-- {{  test
-            .map( x => {return toDate(x)}) 
-            .sort( (a,b) => {return a>b})
-    }} -->
-    <!-- {{ allLabels }} -->
-    <!-- {{ getLabels(test) }} -->
-    <Line id="my-chart-id" :options="chartOptions" :data="chartData" />
+    {{ historical }}
+    -------
+    <!-- {{ charged }} -->
+    {{ chartData.labels }}
+
+    <div v-if="charged">
+        <Line id="my-chart-id" :options="chartOptions" :data="chartData" />
+    </div>
 </template>

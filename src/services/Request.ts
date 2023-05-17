@@ -77,7 +77,7 @@ export default abstract class Request {
             if(_.get(error,'response.status') == 401){
                 logout();
             }
-            throw error;
+            throw error.response.data.error || error;
         })
     }
 

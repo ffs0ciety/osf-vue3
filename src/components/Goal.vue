@@ -19,6 +19,7 @@ export default defineComponent({
   },
   data(){
     return {
+      error: '',
       test:[
                 "Sun Apr 02 2023 18:30:13 GMT+0000 (Coordinated Universal Time)",
                 "Sun Apr 03 2023 18:30:13 GMT+0000 (Coordinated Universal Time)",
@@ -29,13 +30,12 @@ export default defineComponent({
   },
   methods: {
     addEntranceMethod() {
-      addEntrance(this.goalId);
+      addEntrance(this.goalId).catch( error => {
+        this.error = error;
+      });
     }
   },
   async mounted() {
-  },
-  setup(props){
-
   }
 
 
@@ -47,11 +47,9 @@ export default defineComponent({
   <div>
     <h2>{{ title }}</h2> <h2 v-if="daily">* Desafío diario</h2>
     <h3>{{ description }}</h3>
-    <!-- {{ entrances }} -->
-    <!-- <ul>
-      <li v-for="(item, index) in entrances" :key="index">{{ item }}</li>
-    </ul> -->
+  
     <Chart :historical="entrances" />
     <button @click="addEntranceMethod">Add entrance</button>
+    {{ error }}
   </div>
 </template>

@@ -15,14 +15,21 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.12",
     "@aws-amplify/ui-vue": "^3.1.12",
+    "@vue/apollo-composable": "^4.0.0-beta.4",
+    "@vue/apollo-util": "^4.0.0-beta.4",
+    "apollo-boost": "^0.4.9",
     "aws-amplify": "^5.0.23",
     "chart.js": "^4.2.1",
+    "graphql": "^15.8.0",
+    "graphql-tag": "^2.12.6",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "pinia": "^2.0.32",
     "vue": "^3.2.47",
+    "vue-apollo": "^3.1.0",
     "vue-chartjs": "^5.2.0",
     "vue-router": "^4.1.6"
   },

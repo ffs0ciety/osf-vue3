@@ -26,10 +26,6 @@ export default defineComponent({
         }
     },
     methods:{
-        async login(){
-           
-        },
-
         logoutButton(){
           logout();
         },
